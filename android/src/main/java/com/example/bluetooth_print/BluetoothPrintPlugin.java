@@ -38,7 +38,7 @@ public class BluetoothPrintPlugin implements MethodCallHandler, RequestPermissio
   private static final String TAG = "BluetoothPrintPlugin";
   private int id = 0;
   private ThreadPool threadPool;
-  private static final int REQUEST_COARSE_LOCATION_PERMISSIONS = 1451;
+  private static final int REQUEST_FINE_LOCATION_PERMISSIONS = 34;
   private static final String NAMESPACE = "bluetooth_print";
   private final Registrar registrar;
   private final Activity activity;
@@ -90,12 +90,12 @@ public class BluetoothPrintPlugin implements MethodCallHandler, RequestPermissio
         break;
       case "startScan":
       {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
           ActivityCompat.requestPermissions(
                   activity,
-                  new String[] {Manifest.permission.ACCESS_COARSE_LOCATION},
-                  REQUEST_COARSE_LOCATION_PERMISSIONS);
+                  new String[] {Manifest.permission.ACCESS_FINE_LOCATION},
+                  REQUEST_FINE_LOCATION_PERMISSIONS);
           pendingCall = call;
           pendingResult = result;
           break;
@@ -341,7 +341,7 @@ public class BluetoothPrintPlugin implements MethodCallHandler, RequestPermissio
   @Override
   public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
-    if (requestCode == REQUEST_COARSE_LOCATION_PERMISSIONS) {
+    if (requestCode == REQUEST_FINE_LOCATION_PERMISSIONS) {
       if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         startScan(pendingCall, pendingResult);
       } else {
