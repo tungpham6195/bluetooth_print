@@ -6,3 +6,4 @@
 
 build/
 .fvm/
+pubspec.lock
