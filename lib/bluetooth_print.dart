@@ -14,6 +14,7 @@ class BluetoothPrint {
       const MethodChannel('$NAMESPACE/methods');
   static const EventChannel _stateChannel =
       const EventChannel('$NAMESPACE/state');
+
   Stream<MethodCall> get _methodStream => _methodStreamController.stream;
   final StreamController<MethodCall> _methodStreamController =
       StreamController.broadcast();
@@ -39,10 +40,12 @@ class BluetoothPrint {
       await _channel.invokeMethod('isConnected');
 
   BehaviorSubject<bool> _isScanning = BehaviorSubject.seeded(false);
+
   Stream<bool> get isScanning => _isScanning.stream;
 
   BehaviorSubject<List<BluetoothDevice>> _scanResults =
       BehaviorSubject.seeded([]);
+
   Stream<List<BluetoothDevice>> get scanResults => _scanResults.stream;
 
   PublishSubject _stopScanPill = new PublishSubject();
@@ -91,7 +94,7 @@ class BluetoothPrint {
         .doOnDone(stopScan)
         .map((map) {
       final device = BluetoothDevice.fromJson(Map<String, dynamic>.from(map));
-      final List<BluetoothDevice> list = _scanResults.value!;
+      final List<BluetoothDevice> list = _scanResults.value;
       int newIndex = -1;
       list.asMap().forEach((index, e) {
         if (e.address == device.address) {
