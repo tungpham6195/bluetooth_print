@@ -23,7 +23,7 @@ class BluetoothPrint {
     _channel.setMethodCallHandler((MethodCall call) async {
       _methodStreamController.add(call);
       return;
-    });
+    } as Future<dynamic> Function(MethodCall)?);
   }
 
   static BluetoothPrint _instance = new BluetoothPrint._();
@@ -36,7 +36,7 @@ class BluetoothPrint {
   Future<bool> get isOn async =>
       await _channel.invokeMethod('isOn').then<bool>((d) => d);
 
-  Future<bool> get isConnected async =>
+  Future<bool?> get isConnected async =>
       await _channel.invokeMethod('isConnected');
 
   BehaviorSubject<bool> _isScanning = BehaviorSubject.seeded(false);
