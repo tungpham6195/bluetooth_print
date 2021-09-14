@@ -23,7 +23,7 @@ class BluetoothPrint {
     _channel.setMethodCallHandler((MethodCall call) async {
       _methodStreamController.add(call);
       return;
-    } as Future<dynamic> Function(MethodCall)?);
+    });
   }
 
   static BluetoothPrint _instance = new BluetoothPrint._();
