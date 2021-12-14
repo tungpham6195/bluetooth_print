@@ -51,7 +51,7 @@ class BluetoothPrint {
   PublishSubject _stopScanPill = new PublishSubject();
 
   /// Gets the current state of the Bluetooth module
-  Stream<int> get state async* {
+  Stream<int?> get state async* {
     yield await _channel.invokeMethod('state').then((s) => s);
 
     yield* _stateChannel.receiveBroadcastStream().map((s) => s);
